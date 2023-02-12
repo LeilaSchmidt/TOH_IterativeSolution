@@ -1,19 +1,21 @@
+using System;
+
 namespace TOH_Iterative
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            char fromStack = 'A';
+            char helperStack = 'B';
+            char toStack = 'C';
             int numOfDisks;
             while (!int.TryParse(GetDisks(), out numOfDisks))
             {
                 Console.WriteLine("This is not a number. Please enter a valid number.");
             }
 
-            double numOfMoves = Math.Pow(2, numOfDisks) - 1;
-            Console.WriteLine("With this amount of disks, it will take " + numOfMoves + " moves.");
-
-            DiskMovement(numOfMoves, numOfDisks, 'A', 'C', 'B');
+            DiskMovement(numOfDisks, 'A', 'C', 'B');
             Console.WriteLine("The stack is now sorted. ");
         }
 
@@ -23,37 +25,64 @@ namespace TOH_Iterative
             return Console.ReadLine();
         }
 
-        static void DiskMovement(double numOfMoves, int disks, char fromStack, char toStack, char helperStack)
+        static void DiskMovement(int disks, char source, char dest, char aux)
         {
-            int amountOfDisks = disks;
+            double numOfMoves = Math.Pow(2, disks) - 1;
             int currentDisk = 1;
-            if (currentDisk % 2 == 0)
+            int amountOfDisks = disks;
+            for (int i = 1; i < numOfMoves; i++)
             {
-                char temp = toStack;
-                toStack = helperStack;
-                helperStack = temp;
-            }
-            int i = 1;
-            while (i < numOfMoves)
-            {
-                currentDisk = 1;
-                while (currentDisk <= amountOfDisks)
+                if (amountOfDisks % 2 == 0)
                 {
                     if (i % 3 == 1)
                     {
-                        Console.WriteLine(currentDisk + " from " + fromStack + " to " + toStack);
+                        // legal movement between A & B
+                        Console.WriteLine("Move disk " + currentDisk + " from " + );
+                        // currentDisk++; // place holder to affect the disk count
+
                     }
                     else if (i % 3 == 2)
                     {
-                        Console.WriteLine(currentDisk + " from " + fromStack + " to " + helperStack);
+                        // legal movement between A & C
+                        Console.WriteLine();
+                        //currentDisk--; // place holder
                     }
-                    else if (i % 3 == 0)
+                    else
                     {
-                        Console.WriteLine(currentDisk + " from " + helperStack + " to " + toStack);
+                        // legal movement between B & C
+                        Console.WriteLine();
+                        //currentDisk--; // place holder
+
                     }
-                    i++;
-                    currentDisk++;
                 }
+                if (amountOfDisks % 2 != 0)
+                {
+                    if (i % 3 == 1)
+                    {
+                        // legal movement between A(source) & C(dest)
+                        Console.WriteLine();
+                        //currentDisk--; // place holder
+
+                    }
+                    else if (i % 3 == 2)
+                    {
+                        // legal movement between A & B
+                        Console.WriteLine();
+                        //currentDisk--; // place holder
+
+                    }
+                    else
+                    {
+                        // legal movement between B & C
+                        Console.WriteLine();
+                        //currentDisk--; // place holder
+                    }
+                }
+                char temp = fromStack;
+                fromStack = toStack;
+                toStack = helperStack;
+                helperStack = temp;
+
             }
         }
     }
