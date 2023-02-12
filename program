@@ -29,61 +29,43 @@ namespace TOH_Iterative
         {
             double numOfMoves = Math.Pow(2, disks) - 1;
             int currentDisk = 1;
-            int amountOfDisks = disks;
+            if (disks <= 0)
+            {
+                return;
+            }
+
+            if (currentDisk % 2 == 0)
+            {
+                char temp = dest;
+                dest = aux;
+                aux = temp;
+            } 
+
             for (int i = 1; i < numOfMoves; i++)
             {
-                if (amountOfDisks % 2 == 0)
+
+                if (i % 3 == 1)
                 {
-                    if (i % 3 == 1)
-                    {
-                        // legal movement between A & B
-                        Console.WriteLine("Move disk " + currentDisk + " from " + );
-                        // currentDisk++; // place holder to affect the disk count
+                    // legal movement between source + dest
+                    Console.WriteLine($"Move disk {currentDisk} from {source} to {dest}");
+                    currentDisk++; // place holder to affect the disk count
 
-                    }
-                    else if (i % 3 == 2)
-                    {
-                        // legal movement between A & C
-                        Console.WriteLine();
-                        //currentDisk--; // place holder
-                    }
-                    else
-                    {
-                        // legal movement between B & C
-                        Console.WriteLine();
-                        //currentDisk--; // place holder
-
-                    }
                 }
-                if (amountOfDisks % 2 != 0)
+                else if (i % 3 == 2)
                 {
-                    if (i % 3 == 1)
-                    {
-                        // legal movement between A(source) & C(dest)
-                        Console.WriteLine();
-                        //currentDisk--; // place holder
-
-                    }
-                    else if (i % 3 == 2)
-                    {
-                        // legal movement between A & B
-                        Console.WriteLine();
-                        //currentDisk--; // place holder
-
-                    }
-                    else
-                    {
-                        // legal movement between B & C
-                        Console.WriteLine();
-                        //currentDisk--; // place holder
-                    }
+                    // legal movement between source + aux
+                    Console.WriteLine($"Move disk {currentDisk} from {source} to {aux}");
+                    //currentDisk--; // place holder
                 }
-                char temp = fromStack;
-                fromStack = toStack;
-                toStack = helperStack;
-                helperStack = temp;
+                else
+                {
+                    // legal movement between aux + dest
+                    Console.WriteLine($"Move disk {currentDisk} from {aux} to {dest}");
+                    currentDisk--; // place holder
+                }
+
 
             }
         }
     }
-}
+} 
