@@ -23,30 +23,6 @@ namespace TOH_Iterative
             return Console.ReadLine();
         }
 
-        /*
-        static void DiskMovement(int disks, char fromStack, char toStack, char helperStack)
-        {
-         
-            if (disks <= 0)
-            {
-                return;
-            }
-            if (disks == 1)
-            {
-                Console.WriteLine("Move disk " + disks + " from " + fromStack + " to " + toStack);
-                return;
-            }
-            else
-            {
-                // when this gets called, it goes back up to the function and doesn't carry out the if statement first
-                DiskMovement(disks - 1, fromStack, helperStack, toStack); 
-                Console.WriteLine("Move disk " + disks + " from " + fromStack + " to " + toStack);
-                DiskMovement(disks - 1, helperStack, toStack, fromStack);
-            }
-            Console.WriteLine("Disks is: " + disks);
-        }*/
-
-
         static void DiskMovement(double numOfMoves, int disks, char fromStack, char toStack, char helperStack)
         {
             int amountOfDisks = disks;
