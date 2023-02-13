@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace TOH_Iterative
 {
@@ -10,12 +11,23 @@ namespace TOH_Iterative
             char helperStack = 'B';
             char toStack = 'C';
             int numOfDisks;
+
             while (!int.TryParse(GetDisks(), out numOfDisks))
             {
                 Console.WriteLine("This is not a number. Please enter a valid number.");
             }
 
-            DiskMovement(numOfDisks, 'A', 'C', 'B');
+            Stack<int> Source = new Stack<int>();
+            Stack<int> Aux = new Stack<int>();
+            Stack<int> Dest = new Stack<int>();
+            for (int j = numOfDisks; j >= 1; j--)
+            {
+                Source.Push(j);
+            }
+
+
+
+            DiskMovement(numOfDisks, 'A', 'C', 'B', Source, Aux, Dest);
             Console.WriteLine("The stack is now sorted. ");
         }
 
@@ -25,47 +37,91 @@ namespace TOH_Iterative
             return Console.ReadLine();
         }
 
-        static void DiskMovement(int disks, char source, char dest, char aux)
+        static void DiskMovement(int disks, char source, char dest, char aux, Stack<int> Source, Stack<int> Aux, Stack<int> Dest)
         {
+
             double numOfMoves = Math.Pow(2, disks) - 1;
-            int currentDisk = 1;
+
             if (disks <= 0)
             {
                 return;
             }
 
-            if (currentDisk % 2 == 0)
+            if (disks % 2 == 0)
             {
                 char temp = dest;
                 dest = aux;
                 aux = temp;
-            } 
+            }
 
             for (int i = 1; i < numOfMoves; i++)
             {
-
+                var currentDisk = 1;
                 if (i % 3 == 1)
                 {
-                    // legal movement between source + dest
-                    Console.WriteLine($"Move disk {currentDisk} from {source} to {dest}");
-                    currentDisk++; // place holder to affect the disk count
-
-                }
-                else if (i % 3 == 2)
+                    if (Source.Count() > 0)
+            {
+                // legal movement between source + dest
+                if (disks % 2 == 0)
                 {
-                    // legal movement between source + aux
-                    Console.WriteLine($"Move disk {currentDisk} from {source} to {aux}");
-                    //currentDisk--; // place holder
+                    currentDisk = Source.Pop();
+                    Console.WriteLine($"Move disk {currentDisk} from {source} to {dest}");
+                    Aux.Push(currentDisk);
                 }
                 else
                 {
-                    // legal movement between aux + dest
-                    Console.WriteLine($"Move disk {currentDisk} from {aux} to {dest}");
-                    currentDisk--; // place holder
+                    currentDisk = Source.Pop();
+                    Console.WriteLine($"Move disk {currentDisk} from {source} to {dest}");
+                    Dest.Push(currentDisk);
+                }
+            }
                 }
 
+
+
+                else if (i % 3 == 2)
+                {
+                    // legal movement between source + aux
+                    if (Source.Count() > 0)
+                    {
+                        if (disks % 2 == 0)
+                        {
+                            currentDisk = Source.Pop();
+                            Console.WriteLine($"Move disk {currentDisk} from {source} to {aux}");
+                            Dest.Push(currentDisk);
+                        }
+                        else
+                        {
+                            currentDisk = Source.Pop();
+                            Console.WriteLine($"Move disk {currentDisk} from {source} to {aux}");
+                            Aux.Push(currentDisk);
+                        }
+                    }
+                }
+
+
+
+                else
+                {
+                    // legal movement between aux + dest
+                    if (Aux.Count() > 0)
+                    {
+                        if (disks % 2 == 0)
+                        {
+                            currentDisk = Aux.Pop();
+                            Dest.Push(currentDisk);
+                            Console.WriteLine($"Move disk {currentDisk} from {aux} to {dest}");
+                        }
+                        else
+                        {
+                            currentDisk = Dest.Pop();
+                            Aux.Push(currentDisk);
+                            Console.WriteLine($"Move disk {currentDisk} from {dest} to {aux}");
+                        }
+                    }
+                }
 
             }
         }
     }
-} 
+}
