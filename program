@@ -59,66 +59,24 @@ namespace TOH_Iterative
                 var currentDisk = 1;
                 if (i % 3 == 1)
                 {
-                    if (Source.Count() > 0)
-            {
-                // legal movement between source + dest
-                if (disks % 2 == 0)
-                {
+                    // legal movement between source + dest
                     currentDisk = Source.Pop();
                     Console.WriteLine($"Move disk {currentDisk} from {source} to {dest}");
                     Aux.Push(currentDisk);
                 }
-                else
-                {
-                    currentDisk = Source.Pop();
-                    Console.WriteLine($"Move disk {currentDisk} from {source} to {dest}");
-                    Dest.Push(currentDisk);
-                }
-            }
-                }
-
-
-
                 else if (i % 3 == 2)
                 {
                     // legal movement between source + aux
-                    if (Source.Count() > 0)
-                    {
-                        if (disks % 2 == 0)
-                        {
-                            currentDisk = Source.Pop();
-                            Console.WriteLine($"Move disk {currentDisk} from {source} to {aux}");
-                            Dest.Push(currentDisk);
-                        }
-                        else
-                        {
-                            currentDisk = Source.Pop();
-                            Console.WriteLine($"Move disk {currentDisk} from {source} to {aux}");
-                            Aux.Push(currentDisk);
-                        }
-                    }
+                    currentDisk = Source.Pop();
+                    Console.WriteLine($"Move disk {currentDisk} from {source} to {aux}");
+                    Dest.Push(currentDisk);
                 }
-
-
-
                 else
                 {
                     // legal movement between aux + dest
-                    if (Aux.Count() > 0)
-                    {
-                        if (disks % 2 == 0)
-                        {
-                            currentDisk = Aux.Pop();
-                            Dest.Push(currentDisk);
-                            Console.WriteLine($"Move disk {currentDisk} from {aux} to {dest}");
-                        }
-                        else
-                        {
-                            currentDisk = Dest.Pop();
-                            Aux.Push(currentDisk);
-                            Console.WriteLine($"Move disk {currentDisk} from {dest} to {aux}");
-                        }
-                    }
+                    currentDisk = Aux.Pop();
+                    Dest.Push(currentDisk);
+                    Console.WriteLine($"Move disk {currentDisk} from {aux} to {dest}");
                 }
 
             }
