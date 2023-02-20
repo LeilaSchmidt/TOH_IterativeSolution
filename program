@@ -61,51 +61,77 @@ namespace TOH_Iterative
                 int[] C = Dest.ToArray();
 
 
-                Console.Write("A: ");
-                Array.Reverse(A);
-                foreach (int x in A)
+
+                // Find the maximum height of the stacks
+                int maxHeight = Math.Max(A.Length, Math.Max(B.Length, C.Length));
+
+                // Pad the stacks with empty slots to make them the same height
+                Array.Resize(ref A, maxHeight);
+                Array.Resize(ref B, maxHeight);
+                Array.Resize(ref C, maxHeight);
+
+                // Print the stacks
+                for (int j = 0; j < maxHeight; j++)
                 {
-                    if (A.Length == 0)
+                    // Print the i-th element of stack A, or a space if A is too short
+                    if (j < A.Length)
                     {
-                        Console.Write(" ");
+                        if (A[A.Length - j - 1] == 0)
+                        {
+                            Console.Write("  ");
+                        }
+                        else
+                        {
+                            Console.Write($"{A[A.Length - j - 1],2}");
+                        }
                     }
                     else
                     {
-                        Console.Write(x + ", ");
+                        Console.Write("  ");
                     }
-                }
+                    
 
-                Array.Reverse(B);
-                Console.WriteLine("");
-                Console.Write("B: ");
-                foreach (int y in B)
-                {
-                    if (B.Length == 0)
+                    // Print the i-th element of stack B, or a space if B is too short
+                    if (j < B.Length)
                     {
-                        Console.Write(" ");
+                        if (B[B.Length - j - 1] == 0)
+                        {
+                            Console.Write("  ");
+                        }
+                        else
+                        {
+                            Console.Write($"{B[B.Length - j - 1],2}");
+                        }
                     }
                     else
                     {
-                        Console.Write(y + ", ");
+                        Console.Write("  ");
                     }
-                }
+                    
 
-                Array.Reverse(C);
-                Console.WriteLine("");
-                Console.Write("C: ");
-                foreach (int z in C)
-                {
-                    if (C.Length == 0)
+                    // Print the i-th element of stack C, or a space if C is too short
+                    if (j < C.Length)
                     {
-                        Console.Write(" ");
+                        if (C[C.Length - j - 1] == 0)
+                        {
+                            Console.Write("  ");
+                        }
+                        else
+                        {
+                            Console.Write($"{C[C.Length - j - 1],2}");
+                        }
                     }
                     else
                     {
-                        Console.Write(z + ", ");
+                        Console.Write("  ");
                     }
+                   
+                    Console.WriteLine();
                 }
 
-                Console.WriteLine("");
+                Console.WriteLine(" A B C");
+
+
                 Console.WriteLine("--------------------");
 
                 if (Source.Count() == 0 && Aux.Count() == 0)
@@ -116,7 +142,7 @@ namespace TOH_Iterative
                 var currentDisk = 1;
                 if (i % 3 == 1)
                 {
-                   
+
                     // legal movement between source + dest
                     // if disks even
                     if (disks % 2 == 0)
@@ -298,7 +324,7 @@ namespace TOH_Iterative
                     }
                 }
 
-                
+
             }
         }
     }
